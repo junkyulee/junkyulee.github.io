@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="JunKyu Lee" />
+    <title>JunKyu Lee's Home Page</title>
+    <link rel="stylesheet" href="junkyu.css">
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#menulist").load("src_research_menulist.html");
+            $("#research_sections").load("src_research_sections.html");
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to JunKyu Lee's Home Page</h1>
+        <div class="nav-bar">
+            <a href="page_research.html">Research</a>
+            <a href="page_research_cooperation.html">Cooperation</a>
+            <a href="page_research_safety.html">Safety</a>
+            <a href="page_research_bi_quad.html">Quadrupeds</a>
+        </div>
+        <div id="research_sections"></div>
+    </div>
+    <img src="img/junkyu.jpeg" alt="A beautiful image" style="width: 35%;">
+</body>
+</html>
