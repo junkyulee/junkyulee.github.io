@@ -1,30 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="JunKyu Lee" />
-    <title>JunKyu Lee's Home Page</title>
-    <link rel="stylesheet" href="junkyu.css">
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $("#menulist").load("src_research_menulist.html");
-            $("#research_sections").load("src_research_sections.html");
-        });
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="JunKyu Lee" />
+  <title>JunKyu Lee</title>
+
+  <link rel="stylesheet" href="junkyu.css" />
+
+  <script>
+    async function includeHTML(targetId, filePath) {
+      const el = document.getElementById(targetId);
+      if (!el) return;
+
+      try {
+        const res = await fetch(filePath, { cache: "no-store" });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        el.innerHTML = await res.text();
+      } catch (e) {
+        // Fail gracefully (important on GitHub Pages when a file path is wrong)
+        el.innerHTML = "";
+        console.warn(`Could not load ${filePath} into #${targetId}:`, e);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      includeHTML("menulist", "src_research_menulist.html");
+      // Optional: show research sections on homepage
+      includeHTML("research_sections", "src_research_sections.html");
+
+      const year = document.getElementById("year");
+      if (year) year.textContent = new Date().getFullYear();
+    });
+  </script>
 </head>
+
 <body>
-    <div class="container">
-        <h1>Welcome to JunKyu Lee's Home Page</h1>
-        <div class="nav-bar">
-            <a href="./page_research.html">Research</a>
-            <a href="page_research_cooperation.html">Cooperation</a>
-            <a href="page_research_safety.html">Safety</a>
-            <a href="page_research_bi_quad.html">Quadrupeds</a>
+  <div class="container">
+    <!-- Optional external menu fragment -->
+    <div id="menulist"></div>
+
+    <header class="hero">
+      <div class="hero-text">
+        <h1>JunKyu Lee</h1>
+
+        <p class="subtitle">
+          Research Fellow · Efficient & Secure Neural Systems · University of Essex
+        </p>
+
+        <p class="lead">
+          I study how efficiency-oriented design choices induce structured instabilities in neural systems,
+          and how such instabilities can be characterized and controlled.
+        </p>
+
+        <div class="cta">
+          <a class="btn primary" href="page_research.html">Research</a>
+          <a class="btn" href="page_research_safety.html">Safety</a>
+          <a class="btn" href="page_research_cooperation.html">Cooperation</a>
         </div>
-        <div id="research_sections"></div>
-    </div>
-    <img src="./img/junkyu.jpeg" alt="A beautiful image" style="width: 35;">
+      </div>
+
+      <div class="hero-photo">
+        <img src="img/junkyu.jpeg" alt="JunKyu Lee" />
+      </div>
+    </header>
+
+    <nav class="nav-bar" aria-label="Primary">
+      <a href="page_research.html">Research</a>
+      <a href="page_research_cooperation.html">Cooperation</a>
+      <a href="page_research_safety.html">Safety</a>
+      <a href="page_research_bi_quad.html">Quadrupeds</a>
+    </nav>
+
+    <main class="sections">
+      <section class="card">
+        <h2>About</h2>
+        <p>
+          I work at the intersection of efficiency, reliability, and security in modern neural systems.
+          My goal is to make efficiency-induced failure modes explicit and controllable, enabling predictable
+          and designable efficient AI.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Highlights</h2>
+        <ul>
+          <li>Efficiency-induced instability: characterization, metrics, and benchmarks</li>
+          <li>Control mechanisms: principled correction and robust configuration search</li>
+          <li>Secure efficient models: robustness against backdoors and adversarial behavior</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>Research (auto-loaded)</h2>
+        <div id="research_sections">
+          <p class="muted">
+            If this stays empty, check that <code>src_research_sections.html</code> exists in the repo root.
+          </p>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Contact</h2>
+        <p class="muted">
+          Add your email, Google Scholar, GitHub, and office location here.
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p class="muted">© <span id="year"></span> JunKyu Lee</p>
+    </footer>
+  </div>
 </body>
 </html>
